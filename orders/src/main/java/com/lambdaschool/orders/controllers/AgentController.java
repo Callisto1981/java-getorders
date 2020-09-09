@@ -7,7 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/agents")
 public class AgentController
 {
     @Autowired
@@ -17,7 +21,7 @@ public class AgentController
     @GetMapping(value = "agent/{agentcode}", produces = "application/json")
     public ResponseEntity<?> findAgentById(@PathVariable long agentcode)
     {
-        Agent agent = agentServices.findById();
+        Agent agent = agentServices.findById(agentcode);
         return new ResponseEntity<>(agent, HttpStatus.OK);
     }
 }

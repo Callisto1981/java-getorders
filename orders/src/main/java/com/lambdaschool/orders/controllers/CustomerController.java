@@ -7,11 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/customers")
 public class CustomerController
 {
     @Autowired
-    CustomerServices customerServices;
+    private CustomerServices customerServices;
+
     //http://localhost:2019/customers/orders
     @GetMapping(value = "/orders", produces = "application/json")
     public ResponseEntity<?> getAllOrders()
@@ -22,10 +27,10 @@ public class CustomerController
 
 
     //http://localhost:2019/customers/customer/7
-    @GetMapping(value = "/customer/{custId}", produces = "application/json")
-    public ResponseEntity<?> findCustomerId(@PathVariable long custId)
+    @GetMapping(value = "/customer/{custcode}", produces = "application/json")
+    public ResponseEntity<?> findCustomerId(@PathVariable long custcode)
     {
-        Customer customer = customerServices.findById(custId);
+        Customer customer = customerServices.findById(custcode);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 

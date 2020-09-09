@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 
-@Controller
+@RestController
+@RequestMapping("/orders")
 public class OrderController
 {
     @Autowired
-    OrderServices orderServices;
+    private OrderServices orderServices;
 
 
     //http://localhost:2019/orders/order/7
-    @GetMapping(value = "order/{orderid}", produces = "application/json")
-    public ResponseEntity<?> getOrder(@PathVariable long orderid)
+    @GetMapping(value = "order/{ordnum}", produces = "application/json")
+    public ResponseEntity<?> getOrder(@PathVariable long ordnum)
     {
-        Order order = orderServices.findById();
+        Order order = orderServices.findById(ordnum);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
